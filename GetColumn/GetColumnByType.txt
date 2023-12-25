@@ -1,0 +1,5 @@
+let
+    ObtenerInfoColumnasTabla = (tabla as table) =>
+        Table.FromList(Table.Schema(tabla)[TypeName], Splitter.SplitByNothing())
+in
+    ObtenerInfoColumnasTabla
