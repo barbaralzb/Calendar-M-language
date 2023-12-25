@@ -32,7 +32,7 @@ let
             fechaMinimaTotalFormateada = FormatearFecha(fechaMinimaTotal),
             fechaMaximaTotalFormateada = FormatearFecha(fechaMaximaTotal),
 
-            calendar = FonctionCalendarPlatzi(fechaMinimaTotalFormateada, #date(fechaMaximaTotalFormateada), 1)
+            calendar = FuntionCalendar(fechaMinimaTotalFormateada, #date(fechaMaximaTotalFormateada), 1)
         in
             calendar
 in
