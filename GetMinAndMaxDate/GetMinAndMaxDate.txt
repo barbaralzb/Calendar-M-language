@@ -1,0 +1,19 @@
+let
+    ObtenerColumnasFechaTabla = (tabla as table) =>
+        let
+            columnas = Table.ColumnNames(tabla),
+            columnasFecha = List.Select(columnas, each Value.Type(Table.Column(tabla, _) {0}) = type datetime)
+        in
+            columnasFecha,
+
+    getTable = (NombreTabla as table) => 
+        let
+            // Obtén la tabla correspondiente al nombre
+            columnasFechaTabla = ObtenerColumnasFechaTabla(NombreTabla),
+            fechaMinima = List.Min(List.Combine(List.Transform(columnasFechaTabla, each Table.Column(NombreTabla, _)))),
+            fechaMaxima = List.Max(List.Combine(List.Transform(columnasFechaTabla, each Table.Column(NombreTabla, _))))
+        in
+            // Aqui exporto las variables pero aqui podria importar la funcion FuntionCalendar(MINDATE, MAXDATE) para obtener la tabla de dimension Calendario
+            [FechaMinima = fechaMinima, FechaMaxima = fechaMaxima]
+in
+    getTable
