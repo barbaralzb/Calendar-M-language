@@ -1,0 +1,36 @@
+let
+    ObtenerColumnasFechaTabla = (tabla as table) =>
+        let
+            columnas = Table.ColumnNames(tabla),
+            columnasFecha = List.Select(columnas, each Value.Type(Table.Column(tabla, _) {0}) = type datetime)
+        in
+            columnasFecha,
+
+    FormatearFecha = (fecha as datetime) =>
+        let
+            año = Date.Year(fecha)
+        in
+            año,
+
+    getTable = (Tabla1 as table, Tabla2 as table) => 
+        let
+            columnasFechaTabla1 = ObtenerColumnasFechaTabla(Tabla1),
+            columnasFechaTabla2 = ObtenerColumnasFechaTabla(Tabla2),
+
+            fechaMinimaTabla1 = List.Min(List.Combine(List.Transform(columnasFechaTabla1, each Table.Column(Tabla1, _)))),
+            fechaMaximaTabla1 = List.Max(List.Combine(List.Transform(columnasFechaTabla1, each Table.Column(Tabla1, _)))),
+
+            fechaMinimaTabla2 = List.Min(List.Combine(List.Transform(columnasFechaTabla2, each Table.Column(Tabla2, _)))),
+            fechaMaximaTabla2 = List.Max(List.Combine(List.Transform(columnasFechaTabla2, each Table.Column(Tabla2, _)))),
+
+            fechaMinimaTotal = if fechaMinimaTabla1 < fechaMinimaTabla2 then fechaMinimaTabla1 else fechaMinimaTabla2,
+            fechaMaximaTotal = if fechaMaximaTabla1 > fechaMaximaTabla2 then fechaMaximaTabla1 else fechaMaximaTabla2,
+
+            fechaMinimaTotalFormateada = FormatearFecha(fechaMinimaTotal),
+            fechaMaximaTotalFormateada = FormatearFecha(fechaMaximaTotal),
+
+            calendar = FuntionCalendar(#date(fechaMinimaTotalFormateada, 1, 1), #date(fechaMaximaTotalFormateada, 12, 31), 1)
+        in
+            calendar
+in
+    getTable
