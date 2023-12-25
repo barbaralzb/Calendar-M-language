@@ -1,0 +1,9 @@
+let
+    ObtenerColumnasFechaTabla = (tabla as table) =>
+        let
+            columnas = Table.ColumnNames(tabla),
+            columnasFecha = List.Select(columnas, each Value.Type(Table.Column(tabla, _) {0}) = type datetime)
+        in
+            columnasFecha
+in
+    ObtenerColumnasFechaTabla
