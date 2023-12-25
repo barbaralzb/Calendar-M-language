@@ -13,7 +13,7 @@ let
             fechaMinima = List.Min(List.Combine(List.Transform(columnasFechaTabla, each Table.Column(NombreTabla, _)))),
             fechaMaxima = List.Max(List.Combine(List.Transform(columnasFechaTabla, each Table.Column(NombreTabla, _))))
         in
-            // Aqui exporto las variables pero aqui podria importar la funcion FuntionCalendar(MINDATE, MAXDATE) para obtener la tabla de dimension Calendario
-            [FechaMinima = fechaMinima, FechaMaxima = fechaMaxima]
+            // Aqui exporto las variables pero aqui podria importar la funcion FunctionCalendar(MINDATE, MAXDATE) para obtener la tabla de dimension Calendario
+            [FechaMinima = fechaMinima, FechaMaxima = fechaMaxima] 
 in
     getTable
